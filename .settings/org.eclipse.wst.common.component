@@ -3,6 +3,7 @@
     <wb-module deploy-name="osscm">
         <wb-resource deploy-path="/" source-path="/WebRoot"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/conf"/>
         <property name="context-root" value="/osscm"/>
         <property name="java-output-path" value="/osscm/WebRoot/WEB-INF/classes"/>
     </wb-module>
