@@ -16,10 +16,6 @@
 
 
   <http entry-point-ref="authenticationProcessingFilterEntryPoint" >
-    <!--<intercept-url pattern="/**" access="ROLE_USER" />  -->
-    <!--<form-login login-page='/Login.jsp' default-target-url="/main.jsp" always-use-default-target="true" />
-    -->
-
     <logout/>
     <!--<remember-me/>-->
     <custom-filter position="FORM_LOGIN_FILTER" ref="loginFilter" />
@@ -54,7 +50,7 @@
   
   
   <!-- <beans:bean id="loginLogAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">  -->  
-  <beans:bean id="loginLogAuthenticationSuccessHandler" class="gndzh.som.summer.security.AjaxAuthenticationSuccessHandler" >  
+  <beans:bean id="loginLogAuthenticationSuccessHandler" class="com.sohu.occsm.auth.AjaxAuthenticationSuccessHandler" >  
     <!--<beans:property name="defaultTargetUrl" value="/index.jsp"></beans:property> -->
   </beans:bean>  
   
@@ -68,8 +64,8 @@
         <beans:property name="securityMetadataSource" ref="opSecurityMetadataSource" />  
     </beans:bean>  
     
-    <beans:bean id="opAccessDecisionManager" class="gndzh.som.summer.security.OpAccessDecisionManager"/>  
-    <beans:bean id="opSecurityMetadataSource" class="gndzh.som.summer.security.OpSecurityMetadataSource"/>  
+    <beans:bean id="opAccessDecisionManager" class="com.sohu.occsm.auth.OpAccessDecisionManager"/>  
+    <beans:bean id="opSecurityMetadataSource" class="com.sohu.occsm.auth.OpSecurityMetadataSource"/>  
   
   <!-- 失败后的处理组件 -->
   <beans:bean id="exceptionMappingAuthenticationFailureHandler"  
@@ -86,44 +82,9 @@
         class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">  
     <beans:property name="defaultFailureUrl" value="/error/sessionExpired"></beans:property>  
  </beans:bean> 
- 
- <!--  
- <beans:bean id="contextSource" class="org.springframework.security.ldap.DefaultSpringSecurityContextSource">
-	<beans:constructor-arg value="ldap://ldap.sohu-inc.com:389"/>
- </beans:bean>
- -->
- 
- <!-- ldap configuration -->
- <!-- <beans:bean id="ldapAuthProvider" class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider" >
-  	<beans:constructor-arg>
-		<beans:bean class="org.springframework.security.ldap.authentication.PasswordComparisonAuthenticator">
-			<beans:constructor-arg ref="contextSource"/>
-			<beans:property name="userSearch">
-				<beans:bean class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
-				  <beans:constructor-arg index="0" value=""/>
-				  <beans:constructor-arg index="1" value="(uid={0})"/>
-				  <beans:constructor-arg index="2" ref="contextSource" />
-				</beans:bean> 
-			</beans:property>
-		</beans:bean>
-	</beans:constructor-arg>
-	<beans:constructor-arg>
-		<beans:bean id="ldapAuthoritiesPopulator" class="gndzh.som.summer.security.MyLdapAuthoritiesPopulator">
-			<beans:constructor-arg ref="contextSource"/>
-			<beans:constructor-arg value="ou=Groups,dc=javali,dc=org"/>
-		</beans:bean>
-	</beans:constructor-arg>
-	<beans:property name="userDetailsContextMapper">
-		<beans:bean id="ldapUserDetailsMapper" class="org.springframework.security.ldap.userdetails.LdapUserDetailsMapper">
-			<beans:property name="rolePrefix" value="ROLE_"/>
-			<beans:property name="convertToUpperCase" value="true"/>
-		</beans:bean>
-	</beans:property>
-  </beans:bean>
-   -->
   
-  <!-- Ldap Ads configuration -->
-  <beans:bean id="adAuthenticationProvider"
+  <!-- Aliyun authentication provider -->
+  <beans:bean id="aliyunAuthProvider"
   class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
     <beans:constructor-arg value="sohu-inc.com" />
     <beans:constructor-arg value="ldap://ldap.sohu-inc.com/" />
@@ -134,41 +95,13 @@
  
   <!-- The authentication manager configuration -->
   <authentication-manager alias="opAuthenticationManager">  
-    <!--  
-    <authentication-provider>
-      <user-service>
-        <user name="ganht" password="tiger" authorities="ROLE_USER" />
-      </user-service>
-    </authentication-provider>
-    -->
-    <!-- <authentication-provider ref="ldapAuthProvider" /> -->
-    <authentication-provider ref="adAuthenticationProvider" />
+    <authentication-provider ref="aliyunAuthProvider" />
   </authentication-manager>  
-  
-
-  
-  <!-- The user detail service configuration -->
-  <!-- 
-  <beans:bean id="myUserDetailServiceImpl" class="gndzh.som.summer.security.MyUserDetailServiceImpl">  
-    <beans:property name="usersDao" ref="usersDao"></beans:property>  
-  </beans:bean> 
-  -->
   
   <!-- The entry point that hasn't been login -->
   <beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
   	<beans:property name="loginFormUrl" value="/error/toLogin" /> 
   </beans:bean>
-  
-  <!-- 
-  <authentication-manager>
-    <authentication-provider>
-      <user-service>
-        <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
-        <user name="bob" password="bobspassword" authorities="ROLE_USER" />
-      </user-service>
-    </authentication-provider>
-  </authentication-manager> 
-  -->
   
 
 </beans:beans>
