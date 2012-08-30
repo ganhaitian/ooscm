@@ -12,7 +12,7 @@
   
   <!--http pattern="/wlsapp/reader/readercomposite*" security="none" /-->
   <http pattern="/login.jsp" security="none"/>
-  <http pattern="/common/**" security="none"/>
+  <http pattern="/source/**" security="none"/>
 
 
   <http entry-point-ref="authenticationProcessingFilterEntryPoint" >
@@ -24,7 +24,7 @@
   </http>
   
   <!-- The login authentication bean -->
-  <beans:bean id="loginFilter" class="gndzh.som.summer.login.LoginAuthenticationFilter">
+  <beans:bean id="loginFilter" class="com.sohu.occsm.auth.LoginAuthenticationFilter">
     <!--Configure the login action-->
     <beans:property name="sessionAuthenticationStrategy" ref="sas" />
   	<beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property>                  
@@ -55,7 +55,7 @@
   </beans:bean>  
   
   <!-- 认证过滤器 -->  
-    <beans:bean id="securityFilter" class="gndzh.som.summer.security.OpSecurityFilter">  
+    <beans:bean id="securityFilter" class="com.sohu.occsm.auth.OpSecurityFilter">  
         <!-- 用户拥有的权限 -->  
         <beans:property name="authenticationManager" ref="opAuthenticationManager" />  
         <!-- 用户是否拥有所请求资源的权限 -->  
@@ -84,13 +84,7 @@
  </beans:bean> 
   
   <!-- Aliyun authentication provider -->
-  <beans:bean id="aliyunAuthProvider"
-  class="org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider">
-    <beans:constructor-arg value="sohu-inc.com" />
-    <beans:constructor-arg value="ldap://ldap.sohu-inc.com/" />
-    <beans:property name="userDetailsContextMapper">
-		<beans:bean class="gndzh.som.summer.security.OpUserDetailsMapper"/>
-	</beans:property>
+  <beans:bean id="aliyunAuthProvider" class="com.sohu.occsm.auth.AliyunAuthenticationProvider">
   </beans:bean>
  
   <!-- The authentication manager configuration -->

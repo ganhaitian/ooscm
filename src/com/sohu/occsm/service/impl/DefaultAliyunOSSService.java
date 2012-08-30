@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 import com.aliyun.openservices.ClientConfiguration;
 import com.aliyun.openservices.oss.OSSClient;
 import com.sohu.occsm.auth.modal.User;
+import com.sohu.occsm.service.IOSSService;
 import com.sohu.occsm.util.BeanUtil;
 
 @Service(value="aliyunSdkService")
-public class DefaultAliyunOSSService {
+public class DefaultAliyunOSSService implements IOSSService{
 
 	private OSSClient client;
 	
