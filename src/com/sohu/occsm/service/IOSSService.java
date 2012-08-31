@@ -13,7 +13,7 @@ public interface IOSSService {
 
 	public void initializeClient(User user) throws AccessException;
 	
-	public List<Bucket> listAllBuckets () throws BusinessException;
+	public List<Bucket> listAllBuckets (boolean refresh) throws BusinessException;
 	
 	public void createBucket(String bucketName) throws OSSException, ClientException;
 	

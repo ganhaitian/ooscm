@@ -75,9 +75,12 @@ public class DefaultAliyunOSSService implements IOSSService{
 		
 	}
 
-	public List<Bucket> listAllBuckets() throws BusinessException{
+	public List<Bucket> listAllBuckets(boolean refresh) throws BusinessException{
 		try {
-			return client.listBuckets();
+			if(refresh)
+				return client.listBuckets();
+			else
+				return buckets;
 		} catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}

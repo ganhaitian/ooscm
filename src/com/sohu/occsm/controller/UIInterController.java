@@ -17,13 +17,13 @@ public class UIInterController extends AjaxSpringActionSupport{
 	private IOSSService ossService;
 	
 	@RequestMapping("listBuckets.do")
-	public @ResponseBody Object listAllBucket(){
+	public @ResponseBody Object listAllBucket(boolean refresh){
 		try {
 			return genSuccessResponse("",
-			ossService.listAllBuckets());
+			ossService.listAllBuckets(refresh));
 		} catch (BusinessException e) {
 			return genFailureResponse(e.getMessage());
 		}
 	}
-	
+		
 }
