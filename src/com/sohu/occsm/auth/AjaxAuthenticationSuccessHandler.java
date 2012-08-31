@@ -17,9 +17,10 @@ public class AjaxAuthenticationSuccessHandler implements
 			HttpServletResponse response, Authentication authentication)
 			throws IOException, ServletException {
 		response.setContentType("text/html;charset=UTF-8");
-		Writer out=response.getWriter();
-		out.write("{success:true,targeturl:'main.jsp',message:''}");
-		out.close();
+		response.sendRedirect("./main.jsp");
+		//Writer out=response.getWriter();
+		//out.write("{success:true,targeturl:'main.jsp',message:''}");
+		//out.close();
 	}
 
 }

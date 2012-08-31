@@ -37,7 +37,7 @@
   <beans:bean id="concurrencyFilter"
    class="org.springframework.security.web.session.ConcurrentSessionFilter">
 	  <beans:property name="sessionRegistry" ref="sessionRegistry" />
-	  <beans:property name="expiredUrl" value="/error/sessionExpired" />
+	  <beans:property name="expiredUrl" value="/login.jsp" />
   </beans:bean>
   
   <beans:bean id="sas" class=
@@ -94,7 +94,7 @@
   
   <!-- The entry point that hasn't been login -->
   <beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-  	<beans:property name="loginFormUrl" value="/error/toLogin" /> 
+  	<beans:property name="loginFormUrl" value="/login.jsp" /> 
   </beans:bean>
   
 

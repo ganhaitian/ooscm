@@ -36,8 +36,8 @@ import com.aliyun.openservices.oss.model.ObjectMetadata;
  */
 public class OSSObjectSample {
 
-    private static final String ACCESS_ID = "ganht";
-    private static final String ACCESS_KEY = "sgdf34dfsfdf_sdf";
+    private static final String ACCESS_ID = "9zhc6rgvdpb3f81pyxjkw1r3";
+    private static final String ACCESS_KEY = "lICm6gukLJu6DC0ymiiQpfM4P5I\\=";
     private static final String OSS_ENDPOINT = "http://storage.aliyun.com/";
 
     /**
