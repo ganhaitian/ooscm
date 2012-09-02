@@ -27,6 +27,14 @@
 						});
 					}
 				},
+				'sourcegrid':{
+					afterrender:function(){
+//						Ext.query('a[name=download_source]')
+//						.on('click',function(){
+//							alert('download');
+//						});
+					}
+				},
 				'#addbucket_btn':{
 					click:function(){
 						var bucketStore=this.getBucketView().getStore();

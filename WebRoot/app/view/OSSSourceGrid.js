@@ -24,7 +24,7 @@
 			width:120,
 			align:'center',
 			tpl:['<a class="source-action-ico ib-share" href="javascript:;" >  </a>',
-			     '<a class="source-action-ico ib-download" href="javascript:;">  </a>',
+			     '<a name="download_source" class="source-action-ico ib-download" onclick=','downloadSource("{key}");',' href="javascript:;">  </a>',
 			     '<a class="source-action-ico ib-more" href="javascript:;">  </a>']
 		}]
 	});

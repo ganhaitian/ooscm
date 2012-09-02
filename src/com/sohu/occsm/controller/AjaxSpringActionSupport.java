@@ -20,4 +20,20 @@ public abstract class AjaxSpringActionSupport {
 		return result;
 	}
 	
+	protected ChanningMap<String,Object> factoryJson(String k,String v){
+		ChanningMap<String,Object> jsonMap=new ChanningMap<String,Object>();
+		return jsonMap.puts(k,v);
+	}
+	
+	protected class ChanningMap<K,V> extends HashMap<K,V>{
+		
+		/*** For serializing.*/
+		private static final long serialVersionUID = -7076647252200355629L;
+
+		public ChanningMap<K,V> puts(K k,V v){
+			super.put(k,v);
+			return this;
+		}
+	}
+	
 }

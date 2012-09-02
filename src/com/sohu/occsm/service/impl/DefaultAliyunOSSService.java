@@ -14,6 +14,8 @@ import com.aliyun.openservices.ClientException;
 import com.aliyun.openservices.oss.OSSClient;
 import com.aliyun.openservices.oss.OSSException;
 import com.aliyun.openservices.oss.model.Bucket;
+import com.aliyun.openservices.oss.model.GeneratePresignedUrlRequest;
+import com.aliyun.openservices.oss.model.GetObjectRequest;
 import com.aliyun.openservices.oss.model.ListObjectsRequest;
 import com.aliyun.openservices.oss.model.ObjectListing;
 import com.sohu.occsm.auth.modal.User;
@@ -107,6 +109,15 @@ public class DefaultAliyunOSSService implements IOSSService{
 		listObjectRequest.setBucketName(bucketName);
 		ObjectListing ol=this.client.listObjects(bucketName);
 		return ol.getObjectSummaries();
+	}
+
+	public void downloadObject(GetObjectRequest request)
+			throws OSSException, ClientException {
+		this.client.getObject(request);
+	}
+
+	public String generateUrlRequest(GeneratePresignedUrlRequest request) throws ClientException {
+		return client.generatePresignedUrl(request).toString();
 	}
 	
 }

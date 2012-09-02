@@ -23,6 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="./source/js/ext4/resources/css/ext-all-gray.css">
 
 	<script type="text/javascript" src="./main.js"></script>
+	<script type="text/javascript" src="./global.js"></script>
 	
 	<style type="text/css">
 	
@@ -154,6 +155,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.ib-download{
 			background-position: -20px 0;
+		}
+		
+		.ib-download:hover{
+			background-position: -20px -20px;
 		}
 		
 		.ib-more{
