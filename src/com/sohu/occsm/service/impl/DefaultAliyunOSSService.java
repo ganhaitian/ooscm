@@ -14,6 +14,8 @@ import com.aliyun.openservices.ClientException;
 import com.aliyun.openservices.oss.OSSClient;
 import com.aliyun.openservices.oss.OSSException;
 import com.aliyun.openservices.oss.model.Bucket;
+import com.aliyun.openservices.oss.model.ListObjectsRequest;
+import com.aliyun.openservices.oss.model.ObjectListing;
 import com.sohu.occsm.auth.modal.User;
 import com.sohu.occsm.exception.AccessException;
 import com.sohu.occsm.exception.BusinessException;
@@ -40,6 +42,9 @@ public class DefaultAliyunOSSService implements IOSSService{
 	//The configurations in "config.properties".
 	private PropertiesConfiguration config;
 	
+	//The list object request.
+	private ListObjectsRequest listObjectRequest;
+	
 	{
 		try {
 			//Initialized the configuration.
@@ -47,6 +52,8 @@ public class DefaultAliyunOSSService implements IOSSService{
 			//Load the properties file.
 			config=new PropertiesConfiguration("config.properties");
 			BeanUtil.initBeanFromProperties(config,clientConfig);
+			//Initialized the list object request.
+			listObjectRequest=new ListObjectsRequest();
 		} catch (ConfigurationException e) {
 			logger.error("Load configuration error",e);
 		}
@@ -88,6 +95,18 @@ public class DefaultAliyunOSSService implements IOSSService{
 
 	public void createBucket(String bucketName) throws OSSException, ClientException {
 		this.client.createBucket(bucketName);
+	}
+	
+	public void deleteBucket(String bucketName) throws OSSException,
+			ClientException {
+		this.client.deleteBucket(bucketName);
+	}
+
+	public List listObjects(String bucketName) throws OSSException,
+			ClientException {
+		listObjectRequest.setBucketName(bucketName);
+		ObjectListing ol=this.client.listObjects(bucketName);
+		return ol.getObjectSummaries();
 	}
 	
 }

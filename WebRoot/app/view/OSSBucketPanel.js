@@ -5,7 +5,9 @@
 		id:'bucket_panel',
 		alias:'widget.bucketpanel',
 		layout:'fit',
-		title:'<div class="sel-tpl-sidebar-title" >Bucket列表</div>',
+		border:false,
+		bodyCls:'bucketPanel',
+		title:'<div class="sel-tpl-sidebar-title" >Bucket</div>',
 		dockedItems:[{
 			xtype:'toolbar',
 			dock:'bottom',
@@ -13,6 +15,7 @@
 				id:'addbucket_btn',
 				iconCls:'ico-btn ib-newbucket'
 			},{
+				id:'delbucket_btn',
 				iconCls:'ico-btn ib-delbucket'
 			}]
 		}],
@@ -23,17 +26,27 @@
 			itemSelector:'.sel-tpl-sidebar-tt',
 			cls:'sel-tpl-sidebar-list',
 		    selModel: {
-		    	deselectOnContainerClick: false
+		    	deselectOnContainerClick: false,
+		    	listeners:{
+		    		selectionchange:function(model,selected,options){
+		    			if(selected.length==0)
+		    				Ext.get('source_panel').first().replaceCls(
+		    				'source-panel','source-panel-noborder');
+		    			else
+		    				Ext.get('source_panel').first().replaceCls(
+		    				'source-panel-noborder','source-panel');
+		    		}
+		    	}
 	        },
 			tpl:new Ext.XTemplate(
     				//'<div class="sel-tpl-sidebar-title" >Bucket列表</div>',
-    				'<div style="height:85%">',
+    				'<ul style="height:100%;">',
 	                    '<tpl for=".">',
-	                    	'<div class="sel-tpl-sidebar-tt" id="bucket-{id}">',
+	                    	'<li class="sel-tpl-sidebar-tt" id="bucket-{id}">',
 	                    		'{name}',
-	                    	'</div>',
+	                    	'</li>',
 	                    '</tpl>',
-                    '</div>'
+                    '</ul>'
     		)
 		}],
 	});

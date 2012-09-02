@@ -15,7 +15,7 @@
 		},{
 			xtype:'controlpanel',
 			region:'south',
-			height:300,
+			//height:300,
 			margins:'0 2 2 2'
 		}]
 	});

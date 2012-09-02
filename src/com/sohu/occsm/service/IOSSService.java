@@ -17,4 +17,7 @@ public interface IOSSService {
 	
 	public void createBucket(String bucketName) throws OSSException, ClientException;
 	
+	public void deleteBucket(String bucketName) throws OSSException, ClientException;
+	
+	public List listObjects(String bucketName) throws OSSException, ClientException;
 }

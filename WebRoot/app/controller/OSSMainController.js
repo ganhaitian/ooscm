@@ -1,8 +1,9 @@
 
 	Ext.define('oss.controller.OSSMainController',{
 		extend:'Ext.app.Controller',
-		views:['OSSBucketPanel','OSSControlPanel','OSSSourcePanel','OSSMainPanel'],
-		stores:['BucketViewStore'],
+		views:['OSSBucketPanel','OSSControlPanel','OSSSourcePanel','OSSMainPanel',
+		       'OSSSourceGrid'],
+		stores:['BucketViewStore','Source'],
 		models:['Bucket'],
 		refs:[{
 			ref:'bucketView',
@@ -16,6 +17,14 @@
 						Ext.defer(function(){
 							this.getBucketView().getSelectionModel().select(0);
 						},300,this);					
+					},
+					selectionchange:function(view,selections,options){
+						var selBucket=this.getSelectedBucket();
+						this.getSourceStore().load({
+							params:{
+								'bucketName':selBucket.get('name')
+							}
+						});
 					}
 				},
 				'#addbucket_btn':{
@@ -38,6 +47,11 @@
 						//Select the first element.
 						this.getBucketView().getSelectionModel().select(id-1);
 					}
+				},
+				'#delbucket_btn':{
+					click:function(){
+						this.delSelectedBucket();
+					}
 				}
 			});
 		},
@@ -51,5 +65,22 @@
 					alert(response.responseText);
 				}
 			});
+		},
+		delSelectedBucket:function(){
+			var bucket=this.getSelectedBucket();
+			var bucketStore=this.getBucketView().getStore();
+			Ext.Ajax.request({
+				url:'delBucket.do',
+				params:{
+					'bucketName':bucket.get('name')
+				},
+				success:function(response){
+					bucketStore.remove(bucket);
+					//alert(response.responseText);
+				}
+			});
+		},
+		getSelectedBucket:function(){
+			return this.getBucketView().getSelectionModel().getLastSelected();
 		}
 	});
