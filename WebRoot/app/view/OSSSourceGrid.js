@@ -4,12 +4,46 @@
 		store:'Source',
 		alias:'widget.sourcegrid',
 		hideHeaders:true,
+		dockedItems:[{
+			xtype:'toolbar',
+			dock:'top',
+			height:50,
+			items:[{
+				xtype:'buttongroup',
+				frame:false,
+				bodyStyle:{
+					'background-image':'-moz-linear-gradient(center top , #E6E6E6, #EFEFEF)'
+				},
+				//bodyBorder:false,
+				items:[{
+					text:'上传文件',
+					id:'upload-btn',
+					iconCls:'ib-upload',
+					scale:'medium',
+					margin:'0 5 0 10',
+					cls:'upload-btn'
+				},{
+					text:'',
+					id:'mkdir-btn',
+					iconCls:'ib-mkdir',
+					scale:'medium'
+				}]
+			},'->',
+			{	
+				xtype:'buttongroup',
+				items:[{
+					text:'刷新'
+				},{
+					text:'设置'
+				}]
+			}]
+		}],
 		columns:[{
 			xtype:'templatecolumn',
 			header:'',
 			align:'center',
 			//dataIndex:'name',
-			tpl:['<img src="./source/images/unknown.gif" style="padding-top:5px;">'],
+			tpl:['<img src="./source/images/{suffix}.gif" style="padding-top:5px;">'],
 			width:40
 		},{
 			xtype:'templatecolumn',

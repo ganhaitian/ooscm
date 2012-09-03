@@ -23,8 +23,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="./source/js/ext4/resources/css/ext-all-gray.css">
 
 	<script type="text/javascript" src="./main.js"></script>
+	<script type="text/javascript" src="./source/swfobject/swfupload.js"></script>
 	<script type="text/javascript" src="./global.js"></script>
-	
+	<script type="text/javascript" >
+		Global.jsessionid='<%=request.getSession().getId()%>';
+	</script>
 	<style type="text/css">
 	
 		body{
@@ -33,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 	
 		.sel-tpl-sidebar-list{
-        	/* background: none repeat scroll 0 0 #EEF2F7; */
+        	
         }
         
         .sel-tpl-sidebar-title{
@@ -53,12 +56,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
         
         #tpl_type_list .x-item-selected {
-		   /*  background-color: #7B8B9D;
-		    background-image: -moz-linear-gradient(center top , #8493A4, #6F8194);
-		    border-color: #7B8B9D;
-		    color: #FFFFFF;
-		    font-weight: bold;
-		    text-shadow: 0 1px 0 #4C5866; */
 		    background: url("./source/images/directory_menu_focus.png") no-repeat scroll right -10px #D6E0ED;
     		border-color: #4783D3;
 		}
@@ -70,8 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    color: #FFFFFF;
 		    font-weight: bold;
 		    text-shadow: 0 1px 0 #4C5866;
-		    /* background: url("./source/images/directory_menu_focus.png") no-repeat scroll right -31px #D6E0ED;
- */    		border-color: #4783D3;
+		    border-color: #4783D3;
 		}
 		
 		#sub_tpl_type_panel .x-item-selected {
@@ -114,6 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    width: 16px;
 		}
 		
+		.ib-upload{
+			background-image: url("./source/images/upload.png");
+		}
+		
+		.ib-mkdir{
+			background-image: url("./source/images/ico_mkdir.png");
+		}
+		
 		.ib-newbucket{
 			background-position: -20px 0;
 		}
@@ -149,8 +153,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			margin-top:13px;
 		}
 		
+		#upload-btn{
+			background-image: url("./source/images/button_bg.png");
+			background-position: 0 0;
+		}
+		
+		#upload-btn .x-btn-inner{
+			color:#FFFFFF;
+			padding-left:20px;
+		}
+		
+		.upload-btn{
+			color:#FFFFFF;
+		}
+		
 		.ib-share{
 			background-position: -40px 0;
+		}
+		
+		.ib-share:hover{
+			background-position: -40px -20px;
 		}
 		
 		.ib-download{
@@ -163,6 +185,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.ib-more{
 			background-position: -80px 0;
+		}
+		
+		.ib-more:hover{
+			background-position: -80px -20px;
 		}
 		
 		.source-name{
@@ -179,6 +205,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<iframe id="download_area" style="display:none"></iframe>
   </body>
   
 </html>

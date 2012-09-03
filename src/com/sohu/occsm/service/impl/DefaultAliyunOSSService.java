@@ -18,6 +18,7 @@ import com.aliyun.openservices.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.openservices.oss.model.GetObjectRequest;
 import com.aliyun.openservices.oss.model.ListObjectsRequest;
 import com.aliyun.openservices.oss.model.ObjectListing;
+import com.aliyun.openservices.oss.model.ResponseHeaderOverrides;
 import com.sohu.occsm.auth.modal.User;
 import com.sohu.occsm.exception.AccessException;
 import com.sohu.occsm.exception.BusinessException;
@@ -28,8 +29,10 @@ import com.sohu.occsm.util.BeanUtil;
 @Scope("singleton")
 public class DefaultAliyunOSSService implements IOSSService{
 
+	/**The oss client instance*/
 	private OSSClient client;
 	
+	/**The client configuration.*/
 	private ClientConfiguration clientConfig;
 	
 	//The log plug.
@@ -46,6 +49,9 @@ public class DefaultAliyunOSSService implements IOSSService{
 	
 	//The list object request.
 	private ListObjectsRequest listObjectRequest;
+	
+	//Contains in sending OSS GET request can be overloaded return to request head
+	private ResponseHeaderOverrides responseHeader=new ResponseHeaderOverrides();
 	
 	{
 		try {
@@ -117,6 +123,9 @@ public class DefaultAliyunOSSService implements IOSSService{
 	}
 
 	public String generateUrlRequest(GeneratePresignedUrlRequest request) throws ClientException {
+		//Set the response header to attachment.
+		responseHeader.setContentDisposition("attachment; filename="+request.getKey());
+		request.setResponseHeaders(responseHeader);
 		return client.generatePresignedUrl(request).toString();
 	}
 	

@@ -2,9 +2,9 @@
 	Ext.define('oss.controller.OSSMainController',{
 		extend:'Ext.app.Controller',
 		views:['OSSBucketPanel','OSSControlPanel','OSSSourcePanel','OSSMainPanel',
-		       'OSSSourceGrid'],
-		stores:['BucketViewStore','Source'],
-		models:['Bucket'],
+		       'OSSSourceGrid','OSSUploadWindow'],
+		stores:['BucketViewStore','Source','UploadInfo'],
+		models:['Bucket','Object'],
 		refs:[{
 			ref:'bucketView',
 			selector:'#bucket_view'
@@ -13,10 +13,14 @@
 			this.control({
 				'#bucket_view':{
 					afterrender:function(cmp,options){
-						cmp.getStore().load();
-						Ext.defer(function(){
-							this.getBucketView().getSelectionModel().select(0);
-						},300,this);					
+						var bucketView=this.getBucketView();
+						cmp.getStore().load({
+							callback:function(){
+								Ext.defer(function(){
+									bucketView.getSelectionModel().select(0);
+								},300,this);	
+							}
+						});	
 					},
 					selectionchange:function(view,selections,options){
 						var selBucket=this.getSelectedBucket();
@@ -59,6 +63,20 @@
 				'#delbucket_btn':{
 					click:function(){
 						this.delSelectedBucket();
+					}
+				},
+				'#upload-btn':{
+					click:function(){
+						
+						if(!Global.uploadWindow)
+							Global.uploadWindow=Ext.widget('uploadwindow');
+						
+						Global.uploadWindow.show();
+					}
+				},
+				'uploadwindow':{
+					afterrender:function(){
+						Global.initSwfObject();
 					}
 				}
 			});
