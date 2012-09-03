@@ -8,6 +8,7 @@
 			xtype:'toolbar',
 			dock:'top',
 			height:50,
+			id:'main_tbar',
 			items:[{
 				xtype:'buttongroup',
 				frame:false,

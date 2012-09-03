@@ -11,11 +11,12 @@
 		dockedItems:[{
 			dock:'top',
 			xtype:'toolbar',
+			id:'upload_toolbar',
+			height:30,
 			items:['->',{
-				//text:'上传文件'
-				id:'sel_file_btn',
-				text:'上传文件'
-				//html:'<div>上传文件</div>'
+				text:'上传文件',
+				id:'sel_file_btn'
+				//html:'<div class="file-btn" ><span id="sel_file_btn"></span></div>'
 			}]
 		}],
 		items:[{

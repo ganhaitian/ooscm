@@ -115,7 +115,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		.ib-mkdir{
-			background-image: url("./source/images/ico_mkdir.png");
+			background-image: url("./source/images/ico_button.png");
+			background-position:-20px 0px;
+			top:5px;
+			left:3px;
 		}
 		
 		.ib-newbucket{
@@ -198,6 +201,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		.opt-header{
 			
+		}
+		
+		.file-btn{
+			float:right;
+		}
+		
+		.swfupload{
+			margin-top:3px;
+			margin-right:3px;
+			float:right;
+		}
+		
+		#main_tbar .x-btn-icon{
+			
+		}
+		
+		#main_tbar .x-btn{
+			border:1px solid #C5C5C5;
 		}
 		
 	</style>

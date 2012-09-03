@@ -25,13 +25,15 @@
 		 	post_params: {
 		 		//id:'a1112'
 		 	},
-	        button_image_url: "./source/swfobject/bt.png",
-	        flash_url : "./source/swfobject/swfupload.swf" ,
+	        //button_image_url: "./source/images/ico-addfile.png",
+		 	button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+			button_cursor: SWFUpload.CURSOR.HAND,
+		 	flash_url : "./source/swfobject/swfupload.swf" ,
 	        button_placeholder_id: "sel_file_btn",
 	        button_width: 55,
 	        button_height: 20,
-	        button_text:"选择文件",
-	        button_action : "#",
+	        button_text:"添加文件",
+	        //button_action : "#",
 	        file_post_name : "source",
 	        file_size_limit : "102400",	// 100MB
 			file_types : "*.*",
