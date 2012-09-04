@@ -1,5 +1,7 @@
 package com.sohu.occsm.service.impl;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,10 +20,12 @@ import com.aliyun.openservices.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.openservices.oss.model.GetObjectRequest;
 import com.aliyun.openservices.oss.model.ListObjectsRequest;
 import com.aliyun.openservices.oss.model.ObjectListing;
+import com.aliyun.openservices.oss.model.ObjectMetadata;
 import com.aliyun.openservices.oss.model.ResponseHeaderOverrides;
 import com.sohu.occsm.auth.modal.User;
 import com.sohu.occsm.exception.AccessException;
 import com.sohu.occsm.exception.BusinessException;
+import com.sohu.occsm.model.UploadSource;
 import com.sohu.occsm.service.IOSSService;
 import com.sohu.occsm.util.BeanUtil;
 
@@ -127,6 +131,12 @@ public class DefaultAliyunOSSService implements IOSSService{
 		responseHeader.setContentDisposition("attachment; filename="+request.getKey());
 		request.setResponseHeaders(responseHeader);
 		return client.generatePresignedUrl(request).toString();
+	}
+
+	public void uploadObject(UploadSource source) throws OSSException, ClientException {
+	     client.putObject(source.getBucketName(),
+	     source.getKey(),source.getInputStream(),
+	     source.getObjectMetaData()); 
 	}
 	
 }
