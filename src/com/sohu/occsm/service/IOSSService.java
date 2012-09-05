@@ -10,6 +10,7 @@ import com.aliyun.openservices.oss.model.GetObjectRequest;
 import com.sohu.occsm.auth.modal.User;
 import com.sohu.occsm.exception.AccessException;
 import com.sohu.occsm.exception.BusinessException;
+import com.sohu.occsm.model.UploadSource;
 
 public interface IOSSService {
 
@@ -26,4 +27,6 @@ public interface IOSSService {
 	public void downloadObject(GetObjectRequest request) throws OSSException, ClientException;
 	
 	public String generateUrlRequest(GeneratePresignedUrlRequest request) throws ClientException;
+	
+	public void uploadObject(UploadSource source) throws OSSException, ClientException;
 }

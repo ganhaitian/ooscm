@@ -70,16 +70,36 @@
 	        },
 	        upload_start_handler:function(file){
 	        	//Ext.Msg.progress('上传文件','正在上传文件：'+file.name,'0%');
-	        	alert('bbb');
-	        	return true;
+	        	try {
+	        		/*  I want the next upload to continue automatically so I'll call startUpload here */
+	        		if (this.getStats().files_queued === 0) {
+	        			//document.getElementById(this.customSettings.cancelButtonId).disabled = true;
+	        		} else {	
+	        			Ext.getCmp('upload_grid').getStore().
+		        		add({
+		        			filename:file.name,
+		        			size:file.size
+		        		});
+	        			this.setPostParams({
+	        				bucketName:Ext.getCmp('bucket_view').getSelectionModel().getLastSelected().get('name'),
+	        				key:file.name
+	        			});
+	        			this.startUpload();
+	        		}
+	        	} catch (ex) {
+	        		this.debug(ex);
+	        	}
 	        }, 
 
-	        upload_progress_handler:function(file, current_size, total_size){
-	           	///var percent = Math.ceil((bytesloaded / file.size) * 100);
-	            //Ext.Msg.updateProgress(percent/100,percent+'%');
-	            //OperStore.getById(file.id).set('filestatus', 1);		
-				//OperStore.getById(file.id).commit();
-				//progressBar.updateProgress(current_size/total_size, file.name + ' (' + this.formatBytes(current_size) + ' of ' + this.formatBytes(total_size) + ')');
+	        upload_progress_handler:function(file, bytesLoaded, bytesTotal){
+	        	try {
+	        		var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
+	        		Ext.getCmp('upload_grid').getStore()
+	        		.findRecord('filename',file.name)
+	        		.set('progress',percent+"%");
+	        	} catch (ex) {
+	        		this.debug(ex);
+	        	}
 	        },
 	        upload_success_handler:function(file, server_data){
 	        	alert('bbb');

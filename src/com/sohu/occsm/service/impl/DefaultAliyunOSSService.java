@@ -1,7 +1,5 @@
 package com.sohu.occsm.service.impl;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +18,6 @@ import com.aliyun.openservices.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.openservices.oss.model.GetObjectRequest;
 import com.aliyun.openservices.oss.model.ListObjectsRequest;
 import com.aliyun.openservices.oss.model.ObjectListing;
-import com.aliyun.openservices.oss.model.ObjectMetadata;
 import com.aliyun.openservices.oss.model.ResponseHeaderOverrides;
 import com.sohu.occsm.auth.modal.User;
 import com.sohu.occsm.exception.AccessException;

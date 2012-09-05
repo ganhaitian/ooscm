@@ -22,13 +22,18 @@
 		items:[{
 			xtype:'gridpanel',
 			store:'UploadInfo',
+			id:'upload_grid',
 			columns:[{
 				text:'文件名',
-				flex:1
+				flex:1,
+				dataIndex:'filename'
 			},{
-				text:'上传进度'
+				text:'上传进度',
+				dataIndex:'progress',
+				align:'center'
 			},{
-				text:'大小'
+				text:'大小',
+				dataIndex:'size'
 			},{
 				text:'操作'
 			}]
