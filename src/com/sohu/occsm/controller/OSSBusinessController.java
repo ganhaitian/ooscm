@@ -1,5 +1,6 @@
 package com.sohu.occsm.controller;
 
+import java.net.URLDecoder;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,9 +86,9 @@ public class OSSBusinessController extends AjaxSpringActionSupport {
 			objectMetaData.setContentLength(mFile.getFileItem().getSize());
 			
 			uploadSource.setObjectMetaData(objectMetaData);
-			
-			//ossService.uploadObject(uploadSource);
-			Thread.sleep(2000);
+	
+			ossService.uploadObject(uploadSource);
+			//Thread.sleep(2000);
 			
 			return genSuccessResponse("",null);
 		} catch (Exception e) {

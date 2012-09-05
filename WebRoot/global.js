@@ -82,7 +82,7 @@
 		        		});
 	        			this.setPostParams({
 	        				bucketName:Ext.getCmp('bucket_view').getSelectionModel().getLastSelected().get('name'),
-	        				key:file.name
+	        				key:encodeURI(file.name)
 	        			});
 	        			this.startUpload();
 	        		}

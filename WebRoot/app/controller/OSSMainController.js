@@ -78,6 +78,11 @@
 					afterrender:function(){
 						Global.initSwfObject();
 					}
+				},
+				'#clear_uploadlist_btn':{
+					click:function(){
+						this.getUploadInfoStore().removeAll();
+					}
 				}
 			});
 		},

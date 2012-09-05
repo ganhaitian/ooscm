@@ -221,6 +221,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			border:1px solid #C5C5C5;
 		}
 		
+		#clear_uploadlist_btn .x-btn-icon{
+			background-position:-40px -60px;
+		}
+		
 	</style>
 
   </head>

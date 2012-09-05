@@ -18,6 +18,14 @@
 				id:'sel_file_btn'
 				//html:'<div class="file-btn" ><span id="sel_file_btn"></span></div>'
 			}]
+		},{
+			dock:'bottom',
+			xtype:'toolbar',
+			items:['->',{
+				text:'清空列表',
+				id:'clear_uploadlist_btn',
+				iconCls:'ico-btn ib-clear'
+			}]
 		}],
 		items:[{
 			xtype:'gridpanel',

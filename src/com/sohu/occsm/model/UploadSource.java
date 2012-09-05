@@ -1,6 +1,8 @@
 package com.sohu.occsm.model;
 
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import com.aliyun.openservices.oss.model.ObjectMetadata;
 
@@ -27,7 +29,13 @@ public class UploadSource {
 	}
 
 	public void setKey(String key) {
-		this.key = key;
+		try {
+			this.key=URLDecoder.decode(key,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			this.key = key;
+		}
+		
 	}
 
 	public ObjectMetadata getObjectMetaData() {
