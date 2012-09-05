@@ -19,6 +19,40 @@
 		});
 	}
 	
+	function showMoreMenu(element){
+		if(!Global.contextMenu)
+			Global.contextMenu=Ext.create('Ext.menu.Menu',{
+				 width: 125,
+				 height: 100,
+				 //plain:true,
+				 margin: '0 0 10 0',
+				 showSeparator:false,
+				 floating: true,  // usually you want this set to True (default)
+				 items:[{
+					 text:'下载',
+					 iconCls:'ico-menu ib-download'
+				 },'-',{
+					 text:'移动',
+					 iconCls:'ico-menu ib-move'
+				 },{
+					 text:'重命名',
+					 iconCls:'ico-menu ib-rename'
+				 },{
+					 text:'备注'
+				 },{
+					 text:'删除',
+					 iconCls:'ico-menu ib-delete'
+				 }]
+			
+			});
+		
+		Global.contextMenu.showAt(Ext.get(element).getXY());
+//		Global.contextMenuTip.hide();
+//		Global.contextMenuTip.setTarget(element);
+//		Global.contextMenuTip.show();
+		//alert('clickmenu');
+	}
+	
 	Global.initSwfObject=function(){
 		Global.swfu=new SWFUpload({
 		 	upload_url : "uploadFile.do;jsessionid="+Global.jsessionid, 

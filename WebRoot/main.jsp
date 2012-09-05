@@ -25,6 +25,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="./main.js"></script>
 	<script type="text/javascript" src="./source/swfobject/swfupload.js"></script>
 	<script type="text/javascript" src="./global.js"></script>
+	<script type="text/javascript" src="./source/js/jquery/jquery-1.8.1.min.js"></script>
+	<script type="text/javascript" src="./source/js/tipsy/jquery.tipsy.js"></script>
+	<link rel="stylesheet" type="text/css" href="./source/js/tipsy/tipsy.css">
+	
 	<script type="text/javascript" >
 		Global.jsessionid='<%=request.getSession().getId()%>';
 	</script>
@@ -198,6 +202,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			font-family:Tahoma,Geneva,'微软雅黑','宋体';
 		}
 		
+		.x-body{
+			font-family:Tahoma,Geneva,'微软雅黑','宋体';
+			font-size:12px;
+		}
+		
+		.x-menu-item-text{
+			font-size:12px;
+		}
+		
+		.x-menu-body{
+			background:none repeat scroll 0 0 #FFFFFF !important;
+			box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+		}
+		
 		.opt-header{
 			
 		}
@@ -237,13 +255,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			width:160px;
 			position:relative;
 		}
-		
+			
 		#source_detail_view{
 			background:none repeat scroll 0 0 #EEF2F7;
 		}
 		
 		#source_detail_view label,#source_detail_view input{
-			
+			    background: none repeat scroll 0 0 transparent;
+			    border: 0 none;
+			    cursor: text;
+			    font-size: 14px;
+			    font-weight: bold;
+			    height: 28px;
+			    left: 28px;
+			    line-height: 15px;
+			    overflow: hidden;
+			    padding: 6px 0;
+			    position: absolute;
+			    top: 0;
+			    width: 108px;
+		}
+		
+		#source_detail_view label{
+			color:#999999;
+			z-index:2;
+		}
+		
+		.tbar-btn-ico{
+			background-image:url("./source/images/ico_sub_nav.png");
+		}
+		
+		.ib-refresh{
+			background-position:0 0;
+		}
+		
+		.x-grid-row-focused{
+			background-color:#FFFFDD;
+		}
+		
+		.ico-menu{
+			background-image: url("./source/images/ico_list_opt.png");
+		    background-repeat: no-repeat;
+		    display: inline-block;
+		    height: 16px;
+		    line-height: 10;
+		    overflow: hidden;
+		    width: 16px;
+		}
+		
+		.ib-move{
+			 background-position: -240px 0;
+		}
+		
+		.ib-rename{
+			 background-position: -180px 0;
+		}
+		
+		.ib-delete{
+			background-position: -160px 0;
 		}
 		
 	</style>
@@ -252,6 +321,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<iframe id="download_area" style="display:none"></iframe>
+  	<div class="context-menu" style="z-index: 9999999; top: 176px; left: 1057px; display: none;">
+  		<ul>
+  			<li></li>
+  			<li></li>
+  			<li></li>
+  			<li></li>
+  			<li></li>
+  		</ul>
+  	</div>
   </body>
   
 </html>

@@ -32,14 +32,19 @@
 				}]
 			},'->',
 			{	
-				xtype:'buttongroup',
-				items:[{
-					text:'刷新'
-				},{
-					text:'设置'
-				}]
+				text:'刷新',
+				id:'refresh_objlist_btn'
+			},{
+				text:'设置'
 			}]
 		}],
+		bbar:{
+			xtype:'pagingtoolbar',
+			store:'Source',
+			displayInfo: true,
+            displayMsg: '显示资源{0} - {1} of {2}',
+            emptyMsg: "没有资源显示"		
+		},
 		columns:[{
 			xtype:'templatecolumn',
 			header:'',
@@ -59,9 +64,9 @@
 			cls:'opt-header',
 			width:120,
 			align:'center',
-			tpl:['<a class="source-action-ico ib-share" href="javascript:;" >  </a>',
-			     '<a name="download_source" class="source-action-ico ib-download" onclick=','downloadSource("{key}");',' href="javascript:;">  </a>',
-			     '<a class="source-action-ico ib-more" href="javascript:;">  </a>']
+			tpl:['<a original-title="分享" class="source-action-ico ib-share" href="javascript:;" >  </a>',
+			     '<a original-title="下载" name="download_source" class="source-action-ico ib-download" onclick=','downloadSource("{key}");',' href="javascript:;">  </a>',
+			     '<a original-title="更多" class="source-action-ico ib-more" href="javascript:;" onclick="showMoreMenu(this);" >  </a>']
 		}]
 	});
 	

@@ -14,3 +14,5 @@
 			});
 		}
 	});
+	
+	Ext.QuickTips.init();

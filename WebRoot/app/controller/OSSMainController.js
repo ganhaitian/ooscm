@@ -3,7 +3,7 @@
 		extend:'Ext.app.Controller',
 		views:['OSSBucketPanel','OSSControlPanel','OSSSourcePanel','OSSMainPanel',
 		       'OSSSourceGrid','OSSUploadWindow','OSSSourceDetail'],
-		stores:['BucketViewStore','Source','UploadInfo'],
+		stores:['BucketViewStore','Source','UploadInfo','SourceDetail'],
 		models:['Bucket','Object'],
 		refs:[{
 			ref:'bucketView',
@@ -33,13 +33,22 @@
 				},
 				'sourcegrid':{
 					afterrender:function(){
+						$('a').tipsy({live:true});
 //						Ext.query('a[name=download_source]')
 //						.on('click',function(){
 //							alert('download');
 //						});
+//						Global.contextMenuTip=Ext.create('Ext.tip.ToolTip',{
+//							target:'noexists',
+//							autoHide:false,
+//							draggable:false,
+//							html:'aasdfsfsdfs',
+//							width:150,
+//							height:200
+//						});
 					},
 					selectionchange:function(model,selected,options){
-						alert('select change');
+						//alert('select change');
 					}
 				},
 				'#addbucket_btn':{
@@ -85,6 +94,11 @@
 				'#clear_uploadlist_btn':{
 					click:function(){
 						this.getUploadInfoStore().removeAll();
+					}
+				},
+				'#refresh_objlist_btn':{
+					click:function(){
+						this.getSourceStore().load();
 					}
 				}
 			});

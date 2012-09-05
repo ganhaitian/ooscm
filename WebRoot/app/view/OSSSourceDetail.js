@@ -4,9 +4,12 @@
 		alias:'widget.sourcedetail',
 		data:[{key:'initializedKey'}],
 		id:'source_detail_view',
-		tpl:['<div class="sub-search" ></div>',
-		     '<div>详细信息</div>',
-		     '<div>备注信息</div>',
-		     '<div>回收站</div>'],
-		store:'SourceDetail.js'
+		tpl:['<div class="sub-search" >',
+		     	'<label>搜索条件</label>',
+		     	'<input type="text" >',
+		     '</div>',
+		     '<div></div>',
+		     '<div></div>',
+		     '<div></div>'],
+		store:'SourceDetail'
 	});
