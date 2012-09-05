@@ -98,7 +98,11 @@
 				},
 				'#refresh_objlist_btn':{
 					click:function(){
-						this.getSourceStore().load();
+						this.getSourceStore().load({
+							params:{
+								'bucketName':this.getSelectedBucket().get('name')
+							}
+						});
 					}
 				}
 			});
