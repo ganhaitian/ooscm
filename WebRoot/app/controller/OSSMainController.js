@@ -2,7 +2,7 @@
 	Ext.define('oss.controller.OSSMainController',{
 		extend:'Ext.app.Controller',
 		views:['OSSBucketPanel','OSSControlPanel','OSSSourcePanel','OSSMainPanel',
-		       'OSSSourceGrid','OSSUploadWindow'],
+		       'OSSSourceGrid','OSSUploadWindow','OSSSourceDetail'],
 		stores:['BucketViewStore','Source','UploadInfo'],
 		models:['Bucket','Object'],
 		refs:[{
@@ -37,6 +37,9 @@
 //						.on('click',function(){
 //							alert('download');
 //						});
+					},
+					selectionchange:function(model,selected,options){
+						alert('select change');
 					}
 				},
 				'#addbucket_btn':{

@@ -115,8 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}
 		
 		.ib-mkdir{
-			background-image: url("./source/images/ico_button.png");
-			background-position:-20px 0px;
+			background-image: url("./source/images/ico-mkdir.png");
 			top:5px;
 			left:3px;
 		}
@@ -221,8 +220,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			border:1px solid #C5C5C5;
 		}
 		
+		.maintbar-btn{
+			border:1px solid #C5C5C5;
+			background-image:url("./source/images/button_bg.png");
+			background-position:0 -99px;
+		}
+		
 		#clear_uploadlist_btn .x-btn-icon{
 			background-position:-40px -60px;
+		}
+		
+		.sub-search{
+			background-image:url("./source/images/sub_search.png");
+			height:26px;
+			margin:10px auto;
+			width:160px;
+			position:relative;
+		}
+		
+		#source_detail_view{
+			background:none repeat scroll 0 0 #EEF2F7;
+		}
+		
+		#source_detail_view label,#source_detail_view input{
+			
 		}
 		
 	</style>

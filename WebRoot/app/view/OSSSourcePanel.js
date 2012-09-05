@@ -3,12 +3,17 @@
 		extend:'Ext.panel.Panel',
 		alias:'widget.sourcepanel',
 		id:'source_panel',
-		layout:'fit',
+		layout:'border',
 		//title:'资源管理',
 		items:[
-		{
-			xtype:'sourcegrid'
-		}
+			{
+				xtype:'sourcegrid',
+				region:'center'
+			},{
+				xtype:'sourcedetail',
+				region:'east',
+				width:200
+			}
 		],
 		bodyCls:'source-panel'
 	});

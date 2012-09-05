@@ -25,5 +25,15 @@ public class UIInterController extends AjaxSpringActionSupport{
 			return genFailureResponse(e.getMessage());
 		}
 	}
+	
+	@RequestMapping("listObjects.do")
+	public @ResponseBody Object listObjects(String bucketName){
+		try {
+			return genSuccessResponse("",ossService.listObjects(bucketName));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return genFailureResponse(e.getMessage());
+		}
+	}
 		
 }

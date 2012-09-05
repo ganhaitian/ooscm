@@ -1,6 +1,5 @@
 package com.sohu.occsm.controller;
 
-import java.net.URLDecoder;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +43,6 @@ public class OSSBusinessController extends AjaxSpringActionSupport {
 		try {
 			ossService.deleteBucket(bucketName);
 			return genSuccessResponse("",null);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return genFailureResponse(e.getMessage());
-		}
-	}
-	
-	@RequestMapping("listObjects.do")
-	public @ResponseBody Object listObjects(String bucketName){
-		try {
-			return genSuccessResponse("",ossService.listObjects(bucketName));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return genFailureResponse(e.getMessage());

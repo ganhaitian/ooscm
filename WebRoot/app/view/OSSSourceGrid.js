@@ -21,11 +21,12 @@
 					id:'upload-btn',
 					iconCls:'ib-upload',
 					scale:'medium',
-					margin:'0 5 0 10',
+					margin:'0 10 0 10',
 					cls:'upload-btn'
 				},{
 					text:'',
 					id:'mkdir-btn',
+					cls:'maintbar-btn',
 					iconCls:'ib-mkdir',
 					scale:'medium'
 				}]
