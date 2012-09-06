@@ -10,6 +10,7 @@
 			reader:{
 				root:'data',
 				type:'json'
-			}
+			},
+			limitParam:'maxKeys'
 		}
 	});

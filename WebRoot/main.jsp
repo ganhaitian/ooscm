@@ -315,6 +315,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			background-position: -160px 0;
 		}
 		
+		.upload-busy{
+			background:url("./source/js/ext4/ux/statusbar/images/saving.gif") no-repeat scroll 3px 0 transparent;
+			height:16px;
+		}
+		
+		.upload-complete{
+			background:url("./source/js/ext4/ux/statusbar/images/saved.png") no-repeat scroll 3px 0 transparent;
+			height:16px;
+		}
+		
 	</style>
 
   </head>

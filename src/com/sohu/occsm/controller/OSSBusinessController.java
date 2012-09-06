@@ -86,5 +86,15 @@ public class OSSBusinessController extends AjaxSpringActionSupport {
 		}
 	}
 	
+	@RequestMapping("deleteObject.do")
+	public @ResponseBody Object deleteObject(String bucketName,String key){
+		try{
+			ossService.deleteObject(bucketName,key);
+			return genSuccessResponse("",null);
+		}catch(Exception e){
+			return genFailureResponse(e.getMessage());
+		}
+	}
+	
 	
 }

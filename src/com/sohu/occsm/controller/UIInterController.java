@@ -2,9 +2,11 @@ package com.sohu.occsm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aliyun.openservices.oss.model.ListObjectsRequest;
 import com.sohu.occsm.exception.BusinessException;
 import com.sohu.occsm.service.IOSSService;
 
@@ -27,9 +29,9 @@ public class UIInterController extends AjaxSpringActionSupport{
 	}
 	
 	@RequestMapping("listObjects.do")
-	public @ResponseBody Object listObjects(String bucketName){
+	public @ResponseBody Object listObjects(@ModelAttribute ListObjectsRequest request){
 		try {
-			return genSuccessResponse("",ossService.listObjects(bucketName));
+			return genSuccessResponse("",ossService.listObjects(request));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return genFailureResponse(e.getMessage());

@@ -41,8 +41,28 @@
 				align:'center'
 			},{
 				text:'大小',
-				dataIndex:'size'
+				dataIndex:'size',
+				align:'right',
+				width:70
 			},{
+				text:'状态',
+				align:'center',
+				//dataIndex:'status',
+				//width:95,
+				xtype:'templatecolumn',
+				tpl:new Ext.XTemplate(
+				//'<tpl switch="status">',
+				'<tpl if="status == 1" >',
+					'<div class="upload-busy" >正在保存</div>',
+				'</tpl>',
+				'<tpl if="status == 2" >',
+					'<div class="upload-complete" >上传成功</div>',
+				//'<tpl else>',
+				//	'<div class="upload-complete" ></div>',
+				'</tpl>'
+				)
+			},{
+				
 				text:'操作'
 			}]
 		}]

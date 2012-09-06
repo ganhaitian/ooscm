@@ -104,6 +104,11 @@
 							}
 						});
 					}
+				},
+				'uploadwindow':{
+					close:function(panel,options){
+						alert('aaaa');
+					}
 				}
 			});
 		},

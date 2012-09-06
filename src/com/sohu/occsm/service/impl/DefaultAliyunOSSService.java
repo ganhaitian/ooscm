@@ -111,10 +111,10 @@ public class DefaultAliyunOSSService implements IOSSService{
 		this.client.deleteBucket(bucketName);
 	}
 
-	public List listObjects(String bucketName) throws OSSException,
+	public List listObjects(ListObjectsRequest request) throws OSSException,
 			ClientException {
-		listObjectRequest.setBucketName(bucketName);
-		ObjectListing ol=this.client.listObjects(bucketName);
+		//listObjectRequest.setBucketName(bucketName);
+		ObjectListing ol=this.client.listObjects(request);
 		return ol.getObjectSummaries();
 	}
 
@@ -134,6 +134,10 @@ public class DefaultAliyunOSSService implements IOSSService{
 	     client.putObject(source.getBucketName(),
 	     source.getKey(),source.getInputStream(),
 	     source.getObjectMetaData()); 
+	}
+
+	public void deleteObject(String bucketName, String key) throws OSSException, ClientException {
+		client.deleteObject(bucketName,key);
 	}
 	
 }

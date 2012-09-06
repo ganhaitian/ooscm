@@ -4,6 +4,13 @@
 	function downloadSource(key){
 		var selBucket=Ext.getCmp('bucket_view')
 		.getSelectionModel().getLastSelected();
+		
+		if(!key)
+			key=Ext.getCmp('source_grid')
+			.getSelectionModel()
+			.getLastSelected()
+			.get('key');
+			
 		Ext.Ajax.request({
 			url:'getDownloadUrl.do',
 			params:{
@@ -12,9 +19,39 @@
 			},
 			success:function(response){
 				var result=Ext.JSON.decode(response.responseText);
-				alert(result.data.url);
+				//alert(result.data.url);
 				//window.location.href=result.data.url;
 				Ext.getDom('download_area').src=result.data.url;
+			}
+		});
+	}
+	
+	function deleteObject(key){
+		var selBucket=Ext.getCmp('bucket_view')
+		.getSelectionModel().getLastSelected();
+		
+		if(!key)
+			key=Ext.getCmp('source_grid')
+			.getSelectionModel()
+			.getLastSelected()
+			.get('key');
+		
+		Ext.Ajax.request({
+			url:'deleteObject.do',
+			params:{
+				'bucketName':selBucket.get('name'),
+				'key':key
+			},
+			success:function(response){
+				var result=Ext.JSON.decode(response.responseText);
+				Ext.getCmp('source_grid').getStore().load({
+					params:{
+						'bucketName':selBucket.get('name')
+					}
+				});
+				//alert(result.data.url);
+				//window.location.href=result.data.url;
+				//Ext.getDom('download_area').src=result.data.url;
 			}
 		});
 	}
@@ -30,7 +67,10 @@
 				 floating: true,  // usually you want this set to True (default)
 				 items:[{
 					 text:'下载',
-					 iconCls:'ico-menu ib-download'
+					 iconCls:'ico-menu ib-download',
+					 handler:function(){
+						 downloadSource();
+					 }
 				 },'-',{
 					 text:'移动',
 					 iconCls:'ico-menu ib-move'
@@ -41,7 +81,10 @@
 					 text:'备注'
 				 },{
 					 text:'删除',
-					 iconCls:'ico-menu ib-delete'
+					 iconCls:'ico-menu ib-delete',
+					 handler:function(){
+						 deleteObject();
+					 }
 				 }]
 			
 			});
@@ -75,7 +118,9 @@
 			file_upload_limit : "10",
 			file_queue_limit : "0",
 	        upload_complete_handler:function(file){
-	        
+	        	//alert('ccc');
+	        	var record=Ext.getCmp('upload_grid').getStore().findRecord('filename',file.name);
+	        	record.set('status',2);
 	        },
 	        file_dialog_complete_handler:function(numFilesSelected,numFilesQueued){
 	        	try {
@@ -109,11 +154,11 @@
 	        		if (this.getStats().files_queued === 0) {
 	        			//document.getElementById(this.customSettings.cancelButtonId).disabled = true;
 	        		} else {	
-	        			Ext.getCmp('upload_grid').getStore().
+	        			file.model=Ext.getCmp('upload_grid').getStore().
 		        		add({
 		        			filename:file.name,
 		        			size:file.size
-		        		});
+		        		})[0];
 	        			this.setPostParams({
 	        				bucketName:Ext.getCmp('bucket_view').getSelectionModel().getLastSelected().get('name'),
 	        				key:encodeURI(file.name)
@@ -128,37 +173,17 @@
 	        upload_progress_handler:function(file, bytesLoaded, bytesTotal){
 	        	try {
 	        		var percent = Math.ceil((bytesLoaded / bytesTotal) * 100);
-	        		Ext.getCmp('upload_grid').getStore()
-	        		.findRecord('filename',file.name)
-	        		.set('progress',percent+"%");
+	        		var record=Ext.getCmp('upload_grid').getStore().findRecord('filename',file.name);
+	        		record.set('progress',percent+"%");
+	        		if(percent==100){
+	        			record.set('status',1);
+	        		}
 	        	} catch (ex) {
 	        		this.debug(ex);
 	        	}
 	        },
-	        upload_success_handler:function(file, server_data){
-	        	alert('bbb');
-	        	//var msg=Ext.decode(server_data);
-	        	//alert(msg.success);
-//	        	if("true" == msg.success){
-//	        		OperStore.getById(file.id).set('filestatus', 2);	
-//	        		OperStore.getById(file.id).commit();
-//				
-//					var stats = swfu.getStats();
-//	                if(stats.files_queued > 0){
-//	                	swfu.startUpload();
-//	                }else{
-//	               		Ext.Msg.alert("提示", "文件上传完毕!");
-//	               		windowMsg.close();
-//	                	panel.getStore().load();
-//	                }
-//	        	}else{
-//	        		result = false;
-//	        		OperStore.getById(file.id).set('filestatus', 3);	
-//	        		
-//	        		Ext.Msg.alert("提示", "文件上传失败!");
-//	               	windowMsg.close();
-//	                panel.getStore().load();
-//	        	}
+	        upload_success_handler:function(file,serverData){
+	        	alert('bbbbb');
 	        },
 	        upload_error_handler:function(file,errorCode,message){
 	        	switch (errorCode) {

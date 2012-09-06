@@ -4,6 +4,7 @@
 		store:'Source',
 		alias:'widget.sourcegrid',
 		hideHeaders:true,
+		id:'source_grid',
 		dockedItems:[{
 			xtype:'toolbar',
 			dock:'top',
