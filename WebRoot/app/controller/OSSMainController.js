@@ -110,10 +110,12 @@
 							Global.uploadWindow=Ext.widget('uploadwindow');
 						
 						Global.uploadWindow.show();
+						Global.initSwfObject();
 					}
 				},
 				'uploadwindow':{
 					afterrender:function(){
+						alert('123');
 						Global.initSwfObject();
 					}
 				},

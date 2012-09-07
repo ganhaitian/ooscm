@@ -121,6 +121,7 @@
 	        	//alert('ccc');
 	        	var record=Ext.getCmp('upload_grid').getStore().findRecord('filename',file.name);
 	        	record.set('status',2);
+	        	this.startUpload();
 	        },
 	        file_dialog_complete_handler:function(numFilesSelected,numFilesQueued){
 	        	try {
@@ -163,7 +164,7 @@
 	        				bucketName:Ext.getCmp('bucket_view').getSelectionModel().getLastSelected().get('name'),
 	        				key:encodeURI(file.name)
 	        			});
-	        			this.startUpload();
+	        			//this.startUpload();
 	        		}
 	        	} catch (ex) {
 	        		this.debug(ex);
@@ -183,7 +184,7 @@
 	        	}
 	        },
 	        upload_success_handler:function(file,serverData){
-	        	alert('bbbbb');
+	        	//alert('bbbbb');
 	        },
 	        upload_error_handler:function(file,errorCode,message){
 	        	switch (errorCode) {

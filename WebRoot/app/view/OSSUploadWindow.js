@@ -14,7 +14,7 @@
 			id:'upload_toolbar',
 			height:30,
 			items:['->',{
-				text:'上传文件',
+				text:'',
 				id:'sel_file_btn'
 				//html:'<div class="file-btn" ><span id="sel_file_btn"></span></div>'
 			}]
