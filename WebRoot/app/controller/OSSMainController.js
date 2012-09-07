@@ -48,7 +48,12 @@
 //						});
 					},
 					selectionchange:function(model,selected,options){
-						//alert('select change');
+						if(selected.length==1){
+							this.getSourceDetailStore().loadData([{
+								key:selected[0].get('key'),
+								suffix:selected[0].get('suffix')
+							}]);
+						}
 					}
 				},
 				'#addbucket_btn':{

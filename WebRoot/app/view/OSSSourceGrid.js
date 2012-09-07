@@ -5,6 +5,9 @@
 		alias:'widget.sourcegrid',
 		hideHeaders:true,
 		id:'source_grid',
+//		selModel:Ext.create('Ext.selection.CheckboxModel',{
+//			allowDeselect:true
+//		}),
 		dockedItems:[{
 			xtype:'toolbar',
 			dock:'top',
@@ -48,6 +51,10 @@
 		},
 		columns:[{
 			xtype:'templatecolumn',
+			tpl:['<div class="checkbox" ></div>'],
+			width:25
+		},{
+			xtype:'templatecolumn',
 			header:'',
 			align:'center',
 			//dataIndex:'name',
@@ -57,7 +64,7 @@
 			xtype:'templatecolumn',
 			header:'',
 			tpl:['<div style="padding-top:0px;"><a class="source-name" >{key}</a></div>',
-			     '<div><em style="color:#BABABA">{lastModified}</em></div>'],
+			     '<div class="file-info" ><em style="color:#BABABA">{lastModified}</em><em>{size}</em></div>'],
 			flex:1
 		}
 		,{

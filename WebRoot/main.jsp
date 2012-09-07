@@ -325,6 +325,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			height:16px;
 		}
 		
+		.object-detail{
+			padding:20px 10px 10px;
+		}
+		
+		.file-thumb {
+		    background-position: 0 0;
+		    background-repeat: no-repeat;
+		    display: block;
+		    height: 100px;
+		    margin: auto;
+		    position: relative;
+		    width: 100px;
+		}
+		
+		.sub-info .file-name {
+		    line-height: 16px;
+		    margin-bottom: 6px;
+		    max-height: 48px;
+		    overflow: hidden;
+		    padding: 4px 0 0;
+		    text-align: center;
+		    width: 160px;
+		    word-wrap: break-word;
+		}
+		
+		.tb-mp3{
+			 background-image: url("./source/images/mp3_big.gif");
+		}
+		
+		.file-info em{
+			color:#BABABA;
+			float:left;
+			margin-right:10px;
+		}
+		
+		.checkbox {
+		    background-image: url("./source/images/checkbox.gif");
+		    background-position: 0 0;
+		    background-repeat: no-repeat;
+		    cursor: default;
+		    display: inline-block;
+		    height: 20px;
+		    overflow: hidden;
+		    width: 20px;
+		}
+		
+		.x-grid-cell .checkbox{
+			margin-top:10px;
+		}
+		
 	</style>
 
   </head>
