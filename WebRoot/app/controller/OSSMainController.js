@@ -29,7 +29,8 @@
 						var selBucket=this.getSelectedBucket();
 						this.getSourceStore().load({
 							params:{
-								'bucketName':selBucket.get('name')
+								'bucketName':selBucket.get('name'),
+								'delimiter':'/'
 							}
 						});
 						Ext.getCmp('tbar_location_txt').setText(selBucket.get('name'));

@@ -119,6 +119,9 @@ public class DefaultAliyunOSSService implements IOSSService{
 		ObjectListing ol=this.client.listObjects(request);
 		List<ObjectDetail> result=new ArrayList<ObjectDetail>();
 		
+		for(String prefix:ol.getCommonPrefixes())
+			result.add(new ObjectDetail(prefix));
+		
 		for(OSSObjectSummary objectSummary:ol.getObjectSummaries())
 			result.add(new ObjectDetail(objectSummary));
 			

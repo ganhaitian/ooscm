@@ -2,6 +2,7 @@ package com.sohu.occsm.model;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -26,6 +27,12 @@ public class ObjectDetail {
 		this.objectSummary=objectSummary;
 	}
 	
+	public ObjectDetail(String prefix) {
+		this.objectSummary=new OSSObjectSummary();
+		this.objectSummary.setKey(prefix);
+		this.objectSummary.setLastModified(new Date());
+	}
+
 	public String getLastModified(){
 		return formatter.format(objectSummary.getLastModified());
 		//new DateTime(super.getLastModified(),TimeZone.getDefault());
