@@ -5,9 +5,10 @@
 		alias:'widget.sourcegrid',
 		hideHeaders:true,
 		id:'source_grid',
-//		selModel:Ext.create('Ext.selection.CheckboxModel',{
-//			allowDeselect:true
-//		}),
+		selModel:Ext.create('Ext.selection.RowModel',{
+			allowDeselect:true,
+			mode:'SIMPLE'
+		}),
 		dockedItems:[{
 			xtype:'toolbar',
 			dock:'top',
@@ -39,7 +40,29 @@
 				text:'刷新',
 				id:'refresh_objlist_btn'
 			},{
-				text:'设置'
+				text:'配置',
+				id:'config_objlist_btn'
+			}]
+		},{
+			xtype:'toolbar',
+			dock:'top',
+			id:'path_toolbar',
+			height:32,
+			items:['<div class="checkbox" ></div>',
+			{
+				xtype:'tbtext',
+				id:'tbar_location_txt',
+				text:'september'
+			},'->',{
+				iconCls:'list-filter lf-date'
+			},'-',{
+				iconCls:'list-filter lf-star'
+			},'-',{
+				iconCls:'list-filter order-new'
+			},'-',{
+				iconCls:'list-filter lf-all'
+			},'-',{
+				iconCls:'list-filter ls-thumb'
 			}]
 		}],
 		bbar:{

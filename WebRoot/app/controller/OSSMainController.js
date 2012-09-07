@@ -8,6 +8,9 @@
 		refs:[{
 			ref:'bucketView',
 			selector:'#bucket_view'
+		},{
+			ref:'sourceGrid',
+			selector:'#source_grid'
 		}],
 		init:function(){
 			this.control({
@@ -29,11 +32,14 @@
 								'bucketName':selBucket.get('name')
 							}
 						});
+						Ext.getCmp('tbar_location_txt').setText(selBucket.get('name'));
 					}
 				},
 				'sourcegrid':{
 					afterrender:function(){
 						$('a').tipsy({live:true});
+						
+						
 //						Ext.query('a[name=download_source]')
 //						.on('click',function(){
 //							alert('download');
@@ -48,12 +54,26 @@
 //						});
 					},
 					selectionchange:function(model,selected,options){
-						if(selected.length==1){
-							this.getSourceDetailStore().loadData([{
-								key:selected[0].get('key'),
-								suffix:selected[0].get('suffix')
-							}]);
-						}
+//						if(selected.length==1){	
+//							this.getSourceDetailStore().loadData([{
+//								key:selected[0].get('key'),
+//								suffix:selected[0].get('suffix')
+//							}]);
+//						}
+					},
+					select:function(rowmodel,record,index,options){
+						var selTr=Ext.query('tr:nth('+(index+3)+')',this.getSourceGrid().getEl().dom);
+						Ext.get(selTr).addCls('focus');
+						
+						this.getSourceDetailStore().loadData([{
+							key:record.get('key'),
+							suffix:record.get('suffix')
+						}]);
+						//alert(checkbox);
+					},
+					deselect:function(rowmodel,record,index,options){
+						var selTr=Ext.query('tr:nth('+(index+3)+')',this.getSourceGrid().getEl().dom);
+						Ext.get(selTr).removeCls('focus');
 					}
 				},
 				'#addbucket_btn':{
@@ -113,6 +133,11 @@
 				'uploadwindow':{
 					close:function(panel,options){
 						alert('aaaa');
+					}
+				},
+				'rowmodel':{
+					select:function(){
+						alert('aaa');
 					}
 				}
 			});
