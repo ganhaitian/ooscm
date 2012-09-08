@@ -1,7 +1,7 @@
 
 	Ext.define('oss.model.Object',{
 		extend:'Ext.data.Model',
-		fields:['key','lastModified','size',
+		fields:['key','lastModified','size','isnull',
 		{
 			name:'suffix',
 			convert:function(v,record){

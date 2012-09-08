@@ -37,9 +37,8 @@
 					}
 				},
 				'sourcegrid':{
-					afterrender:function(){
+					afterrender:function(cmp,options){
 						$('a').tipsy({live:true});
-						
 						
 //						Ext.query('a[name=download_source]')
 //						.on('click',function(){
@@ -54,15 +53,21 @@
 //							height:200
 //						});
 					},
-					selectionchange:function(model,selected,options){
-//						if(selected.length==1){	
-//							this.getSourceDetailStore().loadData([{
-//								key:selected[0].get('key'),
-//								suffix:selected[0].get('suffix')
-//							}]);
-//						}
+					itemclick:function(view,record,item,index,event,options){
+						var desel=[];
+						var selections=view.getSelectionModel().getSelection();
+						if(!Ext.DomQuery.is(event.target,'div.checkbox')){
+							Ext.each(selections,
+							function(r){
+								if(r!=record)
+									desel.push(r);
+							});
+						}
+						
+						this.getSourceGrid().getSelectionModel().deselect(desel);
 					},
 					select:function(rowmodel,record,index,options){
+						//alert('select');
 						var selTr=Ext.query('tr:nth('+(index+3)+')',this.getSourceGrid().getEl().dom);
 						Ext.get(selTr).addCls('focus');
 						
@@ -70,7 +75,8 @@
 							key:record.get('key'),
 							suffix:record.get('suffix')
 						}]);
-						//alert(checkbox);
+						
+						//alert(record.checked);
 					},
 					deselect:function(rowmodel,record,index,options){
 						var selTr=Ext.query('tr:nth('+(index+3)+')',this.getSourceGrid().getEl().dom);
