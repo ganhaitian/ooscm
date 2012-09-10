@@ -117,9 +117,11 @@
 							Global.uploadWindow=Ext.create('oss.view.OSSUploadWindow',{});
 						
 						Global.uploadWindow.show();
-						alert('bbb');
-						if(!Global.swfu)
+						//alert('bbb');
+						if(!Global.swfu){
 							Global.initSwfObject();
+							Ext.get('add_file_btn').setTop('0px');
+						}
 					}
 				},
 				'uploadwindow':{

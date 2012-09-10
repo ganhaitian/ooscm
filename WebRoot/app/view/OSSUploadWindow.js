@@ -8,22 +8,20 @@
 		layout:'fit',
 		closeAction:'hide',
 		modal:true,
+		resizable:false,
 		dockedItems:[{
 			dock:'top',
 			xtype:'toolbar',
 			id:'upload_toolbar',
 			height:30,
 			items:[{
-				xtype:'',
-				'<span id="sel_file_btn" style="top:0px;" ></span>'
-			}
-			  
-//			{
-//				text:'添加文件',
-//				id:'sel_file_btn'
-//			}
-			]
-		},{
+			    xtype:'tbtext',
+			    id:'add_file_btn',
+			    text:'<span id="sel_file_btn" style="top:0px;" ></span>',
+			    style:{
+			    	top:0
+			    }
+		}]},{
 			dock:'bottom',
 			xtype:'toolbar',
 			items:['->',{
