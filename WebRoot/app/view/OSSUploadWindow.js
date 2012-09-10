@@ -13,11 +13,16 @@
 			xtype:'toolbar',
 			id:'upload_toolbar',
 			height:30,
-			items:['->',{
-				text:'',
-				id:'sel_file_btn'
-				//html:'<div class="file-btn" ><span id="sel_file_btn"></span></div>'
-			}]
+			items:[{
+				xtype:'',
+				'<span id="sel_file_btn" style="top:0px;" ></span>'
+			}
+			  
+//			{
+//				text:'添加文件',
+//				id:'sel_file_btn'
+//			}
+			]
 		},{
 			dock:'bottom',
 			xtype:'toolbar',
@@ -38,7 +43,7 @@
 			},{
 				text:'上传进度',
 				dataIndex:'progress',
-				align:'center'
+				align:'center'	
 			},{
 				text:'大小',
 				dataIndex:'size',

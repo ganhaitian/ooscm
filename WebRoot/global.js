@@ -1,5 +1,7 @@
 	
-	Global={};
+	Global={
+		pageSize:25
+	};
 
 	function downloadSource(key){
 		var selBucket=Ext.getCmp('bucket_view')
@@ -102,14 +104,16 @@
 		 	post_params: {
 		 		//id:'a1112'
 		 	},
-	        //button_image_url: "./source/images/ico-addfile.png",
+	        button_image_url: "./source/images/upload_btn.png",
 		 	button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
 			button_cursor: SWFUpload.CURSOR.HAND,
 		 	flash_url : "./source/swfobject/swfupload.swf" ,
 	        button_placeholder_id: "sel_file_btn",
-	        button_width: 55,
-	        button_height: 20,
-	        button_text:"添加文件",
+	        button_width: 61,
+	        button_height: 22,
+	        button_text_left_padding: 12,
+            button_text_top_padding: 3,
+	        //button_text:"添加文件",
 	        //button_action : "#",
 	        file_post_name : "source",
 	        file_size_limit : "102400",	// 100MB

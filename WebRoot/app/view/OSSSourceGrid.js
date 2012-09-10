@@ -64,14 +64,25 @@
 			},'-',{
 				iconCls:'list-filter ls-thumb'
 			}]
+		},{
+			xtype:'toolbar',
+			dock:'bottom',
+			id:'page_toolbar',
+			items:['->',{
+				text:'上一页',
+				id:'previous_page_btn'
+			},{
+				text:'下一页',
+				id:'next_page_btn'
+			},'->']
 		}],
-		bbar:{
-			xtype:'pagingtoolbar',
-			store:'Source',
-			displayInfo: true,
-            displayMsg: '显示资源{0} - {1} of {2}',
-            emptyMsg: "没有资源显示"		
-		},
+//		bbar:{
+//			xtype:'pagingtoolbar',
+//			store:'Source',
+//			displayInfo: true,
+//            displayMsg: '显示资源{0} - {1} of {2}',
+//            emptyMsg: "没有资源显示"		
+//		},
 		columns:[{
 			xtype:'templatecolumn',
 			tpl:['<div class="checkbox" ></div>'],

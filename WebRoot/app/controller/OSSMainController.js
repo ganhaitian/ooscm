@@ -27,12 +27,13 @@
 					},
 					selectionchange:function(view,selections,options){
 						var selBucket=this.getSelectedBucket();
-						this.getSourceStore().load({
-							params:{
-								'bucketName':selBucket.get('name'),
-								'delimiter':'/'
-							}
-						});
+//						this.getSourceStore().load({
+//							params:{
+//								'bucketName':selBucket.get('name'),
+//								'delimiter':'/'
+//							}
+//						});
+						this.loadSourceObjects(true,true);
 						Ext.getCmp('tbar_location_txt').setText(selBucket.get('name'));
 					}
 				},
@@ -113,16 +114,19 @@
 					click:function(){
 						
 						if(!Global.uploadWindow)
-							Global.uploadWindow=Ext.widget('uploadwindow');
+							Global.uploadWindow=Ext.create('oss.view.OSSUploadWindow',{});
 						
 						Global.uploadWindow.show();
-						Global.initSwfObject();
+						alert('bbb');
+						if(!Global.swfu)
+							Global.initSwfObject();
 					}
 				},
 				'uploadwindow':{
 					afterrender:function(){
-						alert('123');
-						Global.initSwfObject();
+						alert('345');
+						//alert('123');
+						//Global.initSwfObject();
 					}
 				},
 				'#clear_uploadlist_btn':{
@@ -147,6 +151,44 @@
 				'rowmodel':{
 					select:function(){
 						alert('aaa');
+					}
+				},
+				'#next_page_btn':{
+					click:function(){
+						this.loadSourceObjects(false,true);
+						//var selBucket=this.getSelectedBucket();
+						//var sourceStore=this.getSourceStore();
+//						this.getSourceStore().load({
+//							params:{
+//								'bucketName':selBucket.get('name'),
+//								'delimiter':'/',
+//								'marker':this.getSourceStore().last().get('key')
+//							}
+//						});
+						
+//						if(Global.nextPageCache){
+//							sourceStore.loadData(Global.nextPageCache);
+//						}else{	
+//							Ext.Ajax.request({
+//								url:'listObjects.do',
+//								params:{
+//									bucketName:selBucket.get('name'),
+//									'delimiter':'/',
+//									'marker':this.getSourceStore().last().get('key'),
+//									maxKeys:Global.pageSize*2
+//								},
+//								success:function(response){
+//									var objectsData=Ext.JSON.decode(response.responseTxt);
+//									sourceStore.loadData(objectsData.slice(0,pageSize));					
+//									Global.nextPageCache=objectsData.slice(pageSize-1,pageSize*2);
+//								}
+//							});
+//						}
+					}
+				},
+				'#previous_page_btn':{
+					click:function(){
+						this.loadSourceObjects(false,false);
 					}
 				}
 			});
@@ -178,5 +220,116 @@
 		},
 		getSelectedBucket:function(){
 			return this.getBucketView().getSelectionModel().getLastSelected();
+		},
+		loadSourceObjects:function(bucketChanged,direction){
+			this.getSourceGrid().setLoading({
+				msg:'正在努力加载...'
+			},true);
+			
+			var selBucket=this.getSelectedBucket();
+			var sourceStore=this.getSourceStore();
+			//If the bucket had been changed,than we fetch data from the start position.
+			var lastObject=bucketChanged?null:this.getSourceStore().last();
+			//If click the next page
+			if(direction){
+				if(Global.nextPageCache&&Global.nextPageCache.length>0){
+					//We maintain a marker chain for recording paging trace.
+					if(!Global.premarker){
+						Global.premarker={
+							key:null,
+						};
+//						Global.premarker.nextmarker={	
+//							premarker:Global.premarker,
+//							key:sourceStore.last().get('key')
+//						};
+					}				
+					else{
+						Global.premarker=Global.premarker.nextmarker;
+//						Global.premarker.nextmarker={
+//							premarker:Global.premarker,
+//							key:sourceStore.last().get('key')
+//						}
+					}
+					
+					Global.premarker.nextmarker={
+						premarker:Global.premarker,
+						key:sourceStore.last().get('key')
+					};
+					
+//						Global.premarker={
+//							key:sourceStore.first().get('key'),
+//							premarker:Global.premarker
+//						};
+						
+					sourceStore.loadData(Global.nextPageCache);
+					//Global.nextPageCache=null;
+					Ext.Ajax.request({
+						url:'listObjects.do',
+						async:false,
+						params:{
+							bucketName:selBucket.get('name'),
+							'delimiter':'/',
+							'marker':sourceStore.last().get('key'),
+							maxKeys:Global.pageSize
+						},
+						success:function(response){
+							Global.nextPageCache=Ext.JSON.decode(response.responseText).data;
+							//sourceStore.loadData(objectsData.slice(0,Global.pageSize));					
+							//Global.nextPageCache=objectsData.slice(Global.pageSize-1,Global.pageSize*2);
+							//Set the status of the paging button.
+							Ext.getCmp('next_page_btn').setDisabled(
+							Global.nextPageCache.length==0?true:false);						
+							
+							Ext.getCmp('previous_page_btn').setDisabled(false);
+						}
+					});
+					
+				}else{	
+					Ext.Ajax.request({
+						url:'listObjects.do',
+						async:false,
+						params:{
+							bucketName:selBucket.get('name'),
+							'delimiter':'/',
+							'marker':lastObject?lastObject.get('key'):null,
+							maxKeys:Global.pageSize*2
+						},
+						success:function(response){
+							var objectsData=Ext.JSON.decode(response.responseText).data;
+							sourceStore.loadData(objectsData.slice(0,Global.pageSize));					
+							Global.nextPageCache=objectsData.slice(Global.pageSize,Global.pageSize*2);
+							//Set the status of the paging button.
+							Ext.getCmp('next_page_btn').setDisabled(
+							Global.nextPageCache.length==0?true:false);
+							//Set the status of the previous pagging button.
+							Ext.getCmp('previous_page_btn').setDisabled(bucketChanged?true:false);	
+						}
+					});
+				}
+			}else{
+				Ext.Ajax.request({
+					url:'listObjects.do',
+					async:false,
+					params:{
+						bucketName:selBucket.get('name'),
+						'delimiter':'/',
+						'marker':Global.premarker?Global.premarker.key:null,
+						maxKeys:Global.pageSize
+					},
+					success:function(response){
+						sourceStore.loadData(Ext.JSON.decode(response.responseText).data);
+						
+						if(Global.premarker)
+							Global.premarker=Global.premarker.premarker;
+						
+						if(!Global.premarker)
+							Ext.getCmp('previous_page_btn').setDisabled(true);
+						
+						Ext.getCmp('next_page_btn').setDisabled(false);
+					}
+				});
+			}
+			
+			this.getSourceGrid().setLoading(false);
 		}
 	});
