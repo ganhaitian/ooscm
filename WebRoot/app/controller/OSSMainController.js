@@ -147,7 +147,8 @@
 				},
 				'uploadwindow':{
 					close:function(panel,options){
-						alert('aaaa');
+						//alert('aaaa');
+						this.loadSourceObjects(true,true);
 					}
 				},
 				'rowmodel':{
