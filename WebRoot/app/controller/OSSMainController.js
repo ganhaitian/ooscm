@@ -40,19 +40,6 @@
 				'sourcegrid':{
 					afterrender:function(cmp,options){
 						$('a').tipsy({live:true});
-						
-//						Ext.query('a[name=download_source]')
-//						.on('click',function(){
-//							alert('download');
-//						});
-//						Global.contextMenuTip=Ext.create('Ext.tip.ToolTip',{
-//							target:'noexists',
-//							autoHide:false,
-//							draggable:false,
-//							html:'aasdfsfsdfs',
-//							width:150,
-//							height:200
-//						});
 					},
 					itemclick:function(view,record,item,index,event,options){
 						var desel=[];
@@ -74,7 +61,9 @@
 						
 						this.getSourceDetailStore().loadData([{
 							key:record.get('key'),
-							suffix:record.get('suffix')
+							suffix:record.get('suffix'),
+							size:record.get('size'),
+							lastModified:record.get('lastModified')
 						}]);
 						
 						//alert(record.checked);
@@ -159,34 +148,6 @@
 				'#next_page_btn':{
 					click:function(){
 						this.loadSourceObjects(false,true);
-						//var selBucket=this.getSelectedBucket();
-						//var sourceStore=this.getSourceStore();
-//						this.getSourceStore().load({
-//							params:{
-//								'bucketName':selBucket.get('name'),
-//								'delimiter':'/',
-//								'marker':this.getSourceStore().last().get('key')
-//							}
-//						});
-						
-//						if(Global.nextPageCache){
-//							sourceStore.loadData(Global.nextPageCache);
-//						}else{	
-//							Ext.Ajax.request({
-//								url:'listObjects.do',
-//								params:{
-//									bucketName:selBucket.get('name'),
-//									'delimiter':'/',
-//									'marker':this.getSourceStore().last().get('key'),
-//									maxKeys:Global.pageSize*2
-//								},
-//								success:function(response){
-//									var objectsData=Ext.JSON.decode(response.responseTxt);
-//									sourceStore.loadData(objectsData.slice(0,pageSize));					
-//									Global.nextPageCache=objectsData.slice(pageSize-1,pageSize*2);
-//								}
-//							});
-//						}
 					}
 				},
 				'#previous_page_btn':{
@@ -235,35 +196,24 @@
 			var lastObject=bucketChanged?null:this.getSourceStore().last();
 			//If click the next page
 			if(direction){
-				if(Global.nextPageCache&&Global.nextPageCache.length>0){
+				
+				if(!bucketChanged){
 					//We maintain a marker chain for recording paging trace.
 					if(!Global.premarker){
 						Global.premarker={
 							key:null,
 						};
-//						Global.premarker.nextmarker={	
-//							premarker:Global.premarker,
-//							key:sourceStore.last().get('key')
-//						};
 					}				
-					else{
+					else
 						Global.premarker=Global.premarker.nextmarker;
-//						Global.premarker.nextmarker={
-//							premarker:Global.premarker,
-//							key:sourceStore.last().get('key')
-//						}
-					}
 					
 					Global.premarker.nextmarker={
 						premarker:Global.premarker,
 						key:sourceStore.last().get('key')
 					};
-					
-//						Global.premarker={
-//							key:sourceStore.first().get('key'),
-//							premarker:Global.premarker
-//						};
-						
+				}				
+				
+				if(Global.nextPageCache&&Global.nextPageCache.length>0){		
 					sourceStore.loadData(Global.nextPageCache);
 					//Global.nextPageCache=null;
 					Ext.Ajax.request({
@@ -277,17 +227,14 @@
 						},
 						success:function(response){
 							Global.nextPageCache=Ext.JSON.decode(response.responseText).data;
-							//sourceStore.loadData(objectsData.slice(0,Global.pageSize));					
-							//Global.nextPageCache=objectsData.slice(Global.pageSize-1,Global.pageSize*2);
 							//Set the status of the paging button.
 							Ext.getCmp('next_page_btn').setDisabled(
 							Global.nextPageCache.length==0?true:false);						
 							
 							Ext.getCmp('previous_page_btn').setDisabled(false);
 						}
-					});
-					
-				}else{	
+					});				
+				}else{					
 					Ext.Ajax.request({
 						url:'listObjects.do',
 						async:false,
